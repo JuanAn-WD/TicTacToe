@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <header className="header">
-        <img src="src/assets/img/avatar.svg" className="avatar" />{" "}
+        <img src="./src/assets/img/avatar.svg" className="avatar" />{" "}
         <span className="text">JuanAn-WD</span>
       </header>
       <main className="board">
