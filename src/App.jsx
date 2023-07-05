@@ -5,15 +5,16 @@ import { ModalWinner } from "./components/ModalWinner";
 import { Board } from "./components/Board";
 import { TURNS } from "./utils/constants";
 import { checkEndGame, checkWinner } from "./utils/checks";
-
+import { GithubButton, LinkedinButton } from "./components/socilMediaButtons";
 function App() {
   const [board, setBoard] = useState(() => {
-    const boardFromLocal = window.localStorage.getItem('board')
-    return boardFromLocal ? JSON.parse(boardFromLocal) : Array(9).fill(null)
+    const boardFromLocal = window.localStorage.getItem("board");
+    return boardFromLocal ? JSON.parse(boardFromLocal) : Array(9).fill(null);
   });
-  const [turn, setTurn] = useState(() =>{ const turnFromLocal = window.localStorage.getItem('turn')  
-  return turnFromLocal ?? TURNS.X}
-  );
+  const [turn, setTurn] = useState(() => {
+    const turnFromLocal = window.localStorage.getItem("turn");
+    return turnFromLocal ?? TURNS.X;
+  });
 
   const [winner, setWinner] = useState(null);
 
@@ -21,8 +22,8 @@ function App() {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
-    window.localStorage.removeItem('board')
-    window.localStorage.removeItem('turn')
+    window.localStorage.removeItem("board");
+    window.localStorage.removeItem("turn");
   };
 
   const updateBoard = (index) => {
@@ -34,9 +35,9 @@ function App() {
 
     const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
-    
-    window.localStorage.setItem('board',JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', newTurn)
+
+    window.localStorage.setItem("board", JSON.stringify(newBoard));
+    window.localStorage.setItem("turn", newTurn);
 
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
@@ -46,16 +47,26 @@ function App() {
   };
 
   return (
-    <main className="board">
-      <h1>TicTacToe</h1>
-      <button onClick={resetGame}>Reset Game</button>
-      <Board board={board} updateBoard={updateBoard} />
-      <section className="turn">
-        <Cell isSelected={turn == TURNS.X}>{TURNS.X}</Cell>
-        <Cell isSelected={turn == TURNS.O}>{TURNS.O}</Cell>
-      </section>
-      <ModalWinner resetGame={resetGame} winner={winner} />
-    </main>
+    <>
+      <header className="header">
+        <img src="src/assets/img/avatar.svg" className="avatar" />{" "}
+        <span className="text">JuanAn-WD</span>
+      </header>
+      <main className="board">
+        <h1>TicTacToe</h1>
+        <button onClick={resetGame}>Reset Game</button>
+        <Board board={board} updateBoard={updateBoard} />
+        <section className="turn">
+          <Cell isSelected={turn == TURNS.X}>{TURNS.X}</Cell>
+          <Cell isSelected={turn == TURNS.O}>{TURNS.O}</Cell>
+        </section>
+        <ModalWinner resetGame={resetGame} winner={winner} />
+      </main>
+      <footer className="footer">
+        <LinkedinButton />
+        <GithubButton />
+      </footer>
+    </>
   );
 }
 

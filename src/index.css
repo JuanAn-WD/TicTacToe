@@ -15,23 +15,24 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
+body{
+  height: 100vh;
+
+}
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-
+#root{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .board {
   width: fit-content;
-  margin: 40px auto;
+  margin: 0px auto;
   text-align: center;
 }
 
@@ -83,7 +84,7 @@ body {
 
 .square.is-selected {
   color: #fff;
-  background: #09f;
+  background: #00996a;
 }
 
 .winner {
@@ -101,7 +102,7 @@ body {
   background: #111;
   height: 300px;
   width: 320px;
-  border: 2px solid #eee;
+  border: 2px solid #01ffb2;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -113,7 +114,7 @@ body {
 .winner .win {
   margin: 0 auto;
   width: fit-content;
-  border: 2px solid #eee;
+  border: 2px solid #01ffb2;
   border-radius: 10px;
   display: flex;
   gap: 15px;
@@ -122,10 +123,90 @@ body {
 .square {
   width: 100px;
   height: 100px;
-  border: 2px solid #eee;
+  border: 2px solid #01ffb2;
   border-radius: 5px;
   display: grid;
   place-items: center;
   cursor: pointer;
   font-size: 48px;
+}
+.avatar{
+  width: 64px;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  padding-top: 0;
+}
+.text{
+  display: flex;
+  font-size: 2rem;
+}
+
+.linkedin-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:70px;
+  height:70px;
+  border: none;
+  border-radius: 50%;
+  background-color: #0077b5; 
+  color: #fff; 
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  border: 2px solid white;
+}
+
+.github-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  background-color: #24292e;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  border: 2px solid white;
+}
+
+.linkedin-button:hover,
+.github-button:hover {
+  transform: scale(1.1); /* Cambia el valor según el efecto de escala deseado */
+  box-shadow: 0 0 10px rgba(1, 255, 178, 0.8); /* Cambia el color y la intensidad de la sombra según tu preferencia */
+}
+
+
+.linkedin-icon,
+.github-icon {
+  font-size:40px;
+}
+
+.button-text {
+  font-size: 16px;
+}
+
+.footer {
+  margin-top: auto;
+  margin-bottom: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
 }
