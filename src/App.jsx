@@ -6,6 +6,8 @@ import { Board } from "./components/Board";
 import { TURNS } from "./utils/constants";
 import { checkEndGame, checkWinner } from "./utils/checks";
 import { GithubButton, LinkedinButton } from "./components/socilMediaButtons";
+import avatar from './assets/img/avatar.svg';
+
 function App() {
   const [board, setBoard] = useState(() => {
     const boardFromLocal = window.localStorage.getItem("board");
@@ -49,7 +51,7 @@ function App() {
   return (
     <>
       <header className="header">
-        <img src="/assets/img/avatar.svg" className="avatar" />{" "}
+        <img src={avatar} className="avatar" alt="Avatar"/>
         <span className="text">JuanAn-WD</span>
       </header>
       <main className="board">
