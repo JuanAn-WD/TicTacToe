@@ -11,3 +11,11 @@ export const checkWinner = (board) => {
   }
   return null;
 };
+export const checkSuposedWinner = (board,turn) => {
+  for (const combination of WINNING_COMBINATIONS) {
+    const [a, b, c] = combination;
+    if (board[a] === turn && board[b] === turn && board[c] === turn)
+      return true;
+  }
+  return false;
+};
