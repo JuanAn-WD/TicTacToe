@@ -26,12 +26,16 @@ function App() {
   const [winner, setWinner] = useState(null);
 
   useEffect(() => {
-    if (turn === TURNS.O && mode === "ai") {
-      makeAIMove();
+    if (turn === TURNS.O && mode === "ai" && winner === null) {
+      const timeoutId = setTimeout(() => {
+        makeAIMove();
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
   }, [turn]);
   const updateMode = (modeSelected) =>{
     setMode(modeSelected)
+    window.localStorage.setItem("mode", modeSelected);
   }
   const resetGame = () => {
     setBoard(Array(9).fill(null));
@@ -40,6 +44,7 @@ function App() {
     setMode("")
     window.localStorage.removeItem("board");
     window.localStorage.removeItem("turn");
+    window.localStorage.removeItem("mode");
   };
 
   function makeAIMove() {
@@ -48,23 +53,23 @@ function App() {
   
     for (let i = 0; i < board.length; i++) {
       if (board[i] === null) {
-        board[i] = TURNS.O;
-        if (checkWinner(board)) {
-          updateBoard(i);
-          setWinner(TURNS.O)
+        const boardWithO = [...board];
+        boardWithO[i] = TURNS.O;
+        if (checkWinner(boardWithO)) {
+          updateBoard(i, true);
+          return;
         }
-        board[i] = null;
-        board[i] = TURNS.X;
-        if (checkSuposedWinner(board, TURNS.X)) {
+        const boardWithX = [...board];
+        boardWithX[i] = TURNS.X;
+        if (checkSuposedWinner(boardWithX, TURNS.X)) {
           availableMoves.push(i);
         }
-        board[i] = null;
       }
     }
     if (availableMoves.length > 0) {
       const randomIndex = Math.floor(Math.random() * availableMoves.length);
       randomMove = availableMoves[randomIndex];
-      updateBoard(randomMove);
+      updateBoard(randomMove, true);
       return;
     }
   
@@ -74,14 +79,16 @@ function App() {
         emptyIndices.push(i);
       }
     }
+    if (emptyIndices.length === 0) return;
     const randomIndex = Math.floor(Math.random() * emptyIndices.length);
     randomMove = emptyIndices[randomIndex];
-    updateBoard(randomMove);
+    updateBoard(randomMove, true);
   }
   
 
-  const updateBoard = (index) => {
+  const updateBoard = (index, isAI = false) => {
     if (board[index] || winner) return;
+    if (mode === "ai" && turn === TURNS.O && !isAI) return;
 
     const newBoard = [...board];
     newBoard[index] = turn;
